@@ -192,7 +192,7 @@ Przykład:
 
 ---
 
-## Porównanie do życia
+## Porównanie z życia
 
 Można to porównać do restauracji:
 
@@ -1163,45 +1163,7 @@ To jest praktyczne działanie webu.
 
 ---
 
-# 21. Czego rekruter szuka w tym obszarze?
-
-Rekruter zwykle chce sprawdzić, czy rozumiem podstawy, a nie tylko składnię frameworka.
-
-Najważniejsze pytania są takie:
-
-- czy rozumiem, co dzieje się po kliknięciu przycisku,
-- czy potrafię pobrać dane z API i wyświetlić je w UI,
-- czy rozumiem różnicę między frontendem a backendem,
-- czy wiem, czym są request, response, DOM i renderowanie,
-- czy potrafię używać DevTools do debugowania.
-
----
-
-# 22. Najczęstsze błędy początkujących
-
-## 1. Nauka frameworka bez fundamentów
-
-Znają składnię Reacta, ale nie rozumieją HTTP, DOM i renderowania.
-
-## 2. Brak umiejętności debugowania
-
-Zamiast sprawdzić Console i Network, próbują zgadywać.
-
-## 3. Nierozumienie danych z API
-
-Nie analizują struktury JSON i nie potrafią dopasować jej do UI.
-
-## 4. Mylenie ról frontendu i backendu
-
-Nie wiedzą, co robi frontend, a co backend.
-
-## 5. Myślenie, że wszystko „robi framework”
-
-Framework pomaga, ale nie zastępuje rozumienia podstaw webu.
-
----
-
-# 23. Co powinienem umieć po przerobieniu tej notatki?
+# 21. Co powinienem umieć po przerobieniu tej notatki?
 
 Powinienem umieć własnymi słowami wyjaśnić:
 
@@ -1222,7 +1184,7 @@ Powinienem umieć własnymi słowami wyjaśnić:
 
 ---
 
-# 24. Mini checklista
+# 22. Mini checklista
 
 ## Teoria
 
@@ -1251,73 +1213,6 @@ Powinienem umieć własnymi słowami wyjaśnić:
 - [ ] potrafię znaleźć błąd w Console
 - [ ] potrafię podejrzeć localStorage, sessionStorage i cookies
 - [ ] potrafię wyjaśnić krok po kroku, co dzieje się po kliknięciu przycisku
-
----
-
-# 25. Jak mogę o tym powiedzieć na rozmowie rekrutacyjnej?
-
-Przykładowa odpowiedź:
-
-> Web działa w modelu klient-serwer. Przeglądarka użytkownika wysyła request do serwera, a serwer odsyła response. Frontend odpowiada za UI i interakcje, a backend za logikę, bazę danych i API. Przeglądarka parsuje HTML, CSS i JavaScript, buduje DOM i renderuje stronę. Dane często przychodzą z REST API w formacie JSON. Do debugowania używam DevTools, głównie Console, Elements i Network. Rozumiem też podstawowe różnice między CSR, SSR i SSG.
-
----
-
-# 26. Ćwiczenia praktyczne
-
-## Ćwiczenie 1
-
-Zrób prostą stronę HTML z przyciskiem, który po kliknięciu zmienia tekst na stronie.
-
-Cel:
-
-- DOM,
-- event listener,
-- aktualizacja UI.
-
----
-
-## Ćwiczenie 2
-
-Pobierz dane z publicznego API i wyświetl listę elementów.
-
-Cel:
-
-- `fetch`,
-- request/response,
-- JSON,
-- renderowanie danych.
-
----
-
-## Ćwiczenie 3
-
-Dodaj przełącznik motywu jasny/ciemny i zapisz wybór w `localStorage`.
-
-Cel:
-
-- praca z danymi w przeglądarce,
-- utrzymywanie stanu UI.
-
----
-
-## Ćwiczenie 4
-
-Użyj DevTools, żeby sprawdzić request do API i przeanalizować response.
-
-Cel:
-
-- debugowanie,
-- zakładka Network.
-
----
-
-## Ćwiczenie 5
-
-Porównaj prostą stronę statyczną z widokiem, który pobiera dane dynamicznie z API.
-
-Cel:
-
-- zrozumienie różnicy między statycznym HTML a dynamicznym UI.
 
 ---
 
