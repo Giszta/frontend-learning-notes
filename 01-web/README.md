@@ -192,7 +192,7 @@ Przykład:
 
 ---
 
-## Porównanie do życia
+## Porównanie z życia
 
 Można to porównać do restauracji:
 
@@ -648,3 +648,584 @@ Nie znaleziono zasobu
 Błąd po stronie serwera
 
 ---
+
+# 12. DOM
+
+## Co to jest DOM?
+
+DOM to reprezentacja dokumentu HTML w postaci drzewa obiektów.
+
+Pełna nazwa:
+
+**Document Object Model**
+
+Dzięki DOM JavaScript może:
+
+- znajdować elementy,
+- zmieniać tekst,
+- dodawać i usuwać klasy,
+- tworzyć nowe elementy,
+- reagować na zdarzenia.
+
+---
+
+## Przykład HTML
+
+```html
+<body>
+  <h1>Witaj</h1>
+  <button>Kliknij</button>
+</body>
+```
+
+Przeglądarka buduje z tego strukturę DOM:
+
+- document
+  - body
+    - h1
+    - button
+
+---
+
+## Przykład manipulacji DOM
+
+```js
+const button = document.querySelector("button");
+
+button.addEventListener("click", () => {
+  document.querySelector("h1").textContent = "Kliknięto!";
+});
+```
+
+Po kliknięciu JavaScript zmienia treść elementu w DOM.
+
+---
+
+## Dlaczego DOM jest ważny?
+
+Bo frontend to w dużej mierze:
+
+- wyświetlanie danych,
+- aktualizacja widoku,
+- reagowanie na interakcje użytkownika.
+
+Frameworki też finalnie wpływają na DOM, tylko robią to w bardziej uporządkowany sposób.
+
+---
+
+# 13. Renderowanie strony
+
+Renderowanie to proces, w którym przeglądarka zamienia kod i dane na widoczny interfejs.
+
+To moment, w którym użytkownik realnie widzi stronę.
+
+---
+
+## Uproszczony proces renderowania
+
+1. Przeglądarka pobiera HTML
+2. Buduje DOM
+3. Pobiera CSS
+4. Buduje CSSOM
+5. Łączy DOM i CSSOM
+6. Oblicza układ elementów
+7. Rysuje elementy na ekranie
+8. Wykonuje JavaScript i aktualizuje widok, jeśli trzeba
+
+---
+
+## Dlaczego renderowanie jest ważne?
+
+Bo wpływa na:
+
+- szybkość ładowania strony,
+- wydajność,
+- płynność działania,
+- doświadczenie użytkownika,
+- SEO.
+
+---
+
+# 14. CSR, SSR i SSG
+
+To ważne sposoby renderowania aplikacji webowych.
+
+---
+
+## CSR — Client Side Rendering
+
+Renderowanie odbywa się głównie po stronie klienta, czyli w przeglądarce.
+
+### Jak to działa?
+
+- serwer zwraca podstawowy HTML,
+- przeglądarka pobiera JavaScript,
+- JavaScript buduje widok,
+- dane są często pobierane już po załadowaniu aplikacji.
+
+### Zalety
+
+- dobra interaktywność,
+- wygodne dla aplikacji typu dashboard,
+- dużo logiki po stronie klienta.
+
+### Wady
+
+- wolniejszy pierwszy widok,
+- gorsze SEO,
+- użytkownik może przez chwilę widzieć loader lub pusty ekran.
+
+### Zastosowanie
+
+- dashboardy,
+- aplikacje po zalogowaniu,
+- narzędzia wewnętrzne.
+
+---
+
+## SSR — Server Side Rendering
+
+Renderowanie odbywa się na serwerze przy każdym requestcie.
+
+### Jak to działa?
+
+- użytkownik wchodzi na stronę,
+- serwer generuje gotowy HTML,
+- przeglądarka dostaje gotową stronę,
+- JavaScript później dodaje interaktywność.
+
+### Zalety
+
+- szybszy pierwszy widok,
+- lepsze SEO,
+- dobre dla dynamicznych danych.
+
+### Wady
+
+- większe obciążenie serwera,
+- bardziej złożona architektura.
+
+### Zastosowanie
+
+- e-commerce,
+- strony z dynamiczną treścią,
+- aplikacje, gdzie ważne są świeże dane i SEO.
+
+---
+
+## SSG — Static Site Generation
+
+Strona jest generowana wcześniej, najczęściej podczas builda.
+
+### Jak to działa?
+
+- gotowe pliki HTML są tworzone wcześniej,
+- użytkownik dostaje gotowy statyczny plik.
+
+### Zalety
+
+- bardzo szybkie ładowanie,
+- świetne SEO,
+- prosty hosting.
+
+### Wady
+
+- dane nie są zawsze świeże,
+- przy dużej liczbie stron build może być cięższy.
+
+### Zastosowanie
+
+- blogi,
+- landing pages,
+- portfolio,
+- dokumentacja.
+
+---
+
+## Jak zapamiętać różnice?
+
+### CSR
+
+Przeglądarka buduje widok
+
+### SSR
+
+Serwer buduje widok przy wejściu na stronę
+
+### SSG
+
+Widok został zbudowany wcześniej
+
+---
+
+# 15. Co dzieje się po kliknięciu przycisku?
+
+To bardzo dobre pytanie sprawdzające rozumienie podstaw.
+
+Załóżmy, że użytkownik klika przycisk „Pobierz użytkowników”.
+
+---
+
+## Możliwy przepływ
+
+1. Użytkownik klika przycisk
+2. Przeglądarka wykrywa zdarzenie `click`
+3. JavaScript uruchamia odpowiednią funkcję
+4. Funkcja wysyła request do API
+5. Backend odbiera request
+6. Backend pobiera dane z bazy
+7. Backend odsyła response w formacie JSON
+8. Frontend odbiera dane
+9. JavaScript aktualizuje DOM lub stan aplikacji
+10. Użytkownik widzi nowe dane na ekranie
+
+---
+
+## Przykład
+
+```js
+const button = document.querySelector("#load-users");
+const list = document.querySelector("#users-list");
+
+button.addEventListener("click", async () => {
+  const response = await fetch("https://jsonplaceholder.typicode.com/users");
+  const users = await response.json();
+
+  list.innerHTML = users.map((user) => `<li>${user.name}</li>`).join("");
+});
+```
+
+---
+
+# 16. Jak pobrać dane z API i wyświetlić je w UI?
+
+To jeden z absolutnych fundamentów frontendu.
+
+## Przykład
+
+```js
+async function loadPosts() {
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const posts = await response.json();
+
+  const container = document.querySelector("#posts");
+
+  container.innerHTML = posts
+    .slice(0, 5)
+    .map(
+      (post) => `
+        <article>
+          <h2>${post.title}</h2>
+          <p>${post.body}</p>
+        </article>
+      `,
+    )
+    .join("");
+}
+
+loadPosts();
+```
+
+---
+
+## Co się tutaj dzieje?
+
+- `fetch()` wysyła request,
+- `await` czeka na odpowiedź,
+- `response.json()` zamienia odpowiedź na dane,
+- dane są mapowane na HTML,
+- HTML trafia do DOM.
+
+---
+
+## O czym trzeba pamiętać w praktyce?
+
+W realnej aplikacji trzeba obsłużyć:
+
+- loading,
+- błędy,
+- puste dane.
+
+### Lepsza wersja
+
+```js
+async function loadPosts() {
+  const container = document.querySelector("#posts");
+  container.textContent = "Ładowanie...";
+
+  try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+
+    if (!response.ok) {
+      throw new Error("Błąd pobierania danych");
+    }
+
+    const posts = await response.json();
+
+    container.innerHTML = posts
+      .slice(0, 5)
+      .map(
+        (post) => `
+          <article>
+            <h2>${post.title}</h2>
+            <p>${post.body}</p>
+          </article>
+        `,
+      )
+      .join("");
+  } catch (error) {
+    container.textContent = "Nie udało się pobrać danych.";
+  }
+}
+```
+
+---
+
+# 17. DevTools w przeglądarce
+
+DevTools to podstawowe narzędzie pracy frontend developera.
+
+Najczęściej uruchamia się je przez:
+
+- `F12`
+- `Ctrl + Shift + I`
+
+---
+
+## Najważniejsze zakładki
+
+## Elements
+
+Pozwala oglądać i edytować HTML oraz CSS.
+
+Przydaje się do:
+
+- sprawdzania struktury DOM,
+- debugowania stylów,
+- testowania zmian wizualnych.
+
+---
+
+## Console
+
+Pokazuje:
+
+- błędy JavaScript,
+- ostrzeżenia,
+- logi z `console.log()`.
+
+Przydaje się do debugowania kodu.
+
+---
+
+## Network
+
+Jedna z najważniejszych zakładek.
+
+Pokazuje:
+
+- requesty,
+- response,
+- statusy HTTP,
+- czas ładowania,
+- nagłówki,
+- payload.
+
+Przydaje się do:
+
+- sprawdzania, czy API działa,
+- analizy błędów `404` i `500`,
+- sprawdzania, jakie dane przychodzą z backendu.
+
+---
+
+## Application
+
+Tutaj można sprawdzić między innymi:
+
+- cookies,
+- localStorage,
+- sessionStorage.
+
+---
+
+## Sources
+
+Pozwala analizować pliki JavaScript, ustawiać breakpointy i debugować kod krok po kroku.
+
+---
+
+# 18. Jak używać DevTools w praktyce?
+
+## Gdy coś nie działa
+
+### 1. Sprawdzam Console
+
+Czy pojawił się błąd JavaScript?
+
+### 2. Sprawdzam Network
+
+Czy request został wysłany?  
+Jaki ma status?  
+Czy response zawiera poprawne dane?
+
+### 3. Sprawdzam Elements
+
+Czy element istnieje w DOM?  
+Czy nie został ukryty przez CSS?
+
+### 4. Sprawdzam Application
+
+Czy localStorage, sessionStorage albo cookies mają oczekiwane wartości?
+
+---
+
+## Typowy przykład problemu
+
+Lista produktów się nie wyświetla.
+
+Sprawdzam wtedy:
+
+- czy skrypt się uruchomił,
+- czy `fetch` został wykonany,
+- czy response ma status `200`,
+- czy dane mają taki kształt, jak zakładam,
+- czy poprawnie renderuję dane do DOM,
+- czy kontener docelowy istnieje na stronie.
+
+---
+
+# 19. Najważniejsze pojęcia dodatkowe
+
+## Klient
+
+Najczęściej przeglądarka użytkownika.
+
+## Serwer
+
+Aplikacja lub maszyna obsługująca requesty.
+
+## Baza danych
+
+Miejsce przechowywania danych aplikacji.
+
+## Endpoint
+
+Konkretny adres API, np. `/users` albo `/posts/1`.
+
+## Payload
+
+Dane wysyłane w request albo response.
+
+## Header
+
+Dodatkowe informacje o request albo response.
+
+## Body
+
+Główna treść requestu albo odpowiedzi.
+
+## Status code
+
+Kod określający wynik operacji.
+
+---
+
+# 20. Jak to wszystko łączy się w całość?
+
+Przykład: aplikacja do zarządzania zadaniami.
+
+### Frontend
+
+- pokazuje listę zadań,
+- wyświetla formularz,
+- reaguje na kliknięcie „Dodaj zadanie”.
+
+### Backend
+
+- przechowuje zadania,
+- zapisuje nowe zadania,
+- zwraca listę zadań do frontendu.
+
+### Przepływ
+
+1. Użytkownik otwiera stronę
+2. Przeglądarka pobiera aplikację
+3. Frontend wysyła request po listę zadań
+4. Backend odsyła JSON
+5. Frontend renderuje listę
+6. Użytkownik dodaje zadanie
+7. Frontend wysyła `POST` do API
+8. Backend zapisuje dane
+9. Frontend odświeża widok
+
+To jest praktyczne działanie webu.
+
+---
+
+# 21. Co powinienem umieć po przerobieniu tej notatki?
+
+Powinienem umieć własnymi słowami wyjaśnić:
+
+- czym różni się frontend od backendu,
+- jak działa przeglądarka po wejściu na stronę,
+- czym są request i response,
+- czym różni się HTTP od HTTPS,
+- z czego składa się URL,
+- czym jest DNS,
+- do czego służą cookies,
+- czym różni się localStorage od sessionStorage,
+- czym jest JSON,
+- czym jest REST API,
+- czym jest DOM,
+- jak działa renderowanie strony,
+- czym różni się CSR, SSR i SSG,
+- jak używać DevTools do sprawdzania błędów.
+
+---
+
+# 22. Mini checklista
+
+## Teoria
+
+- [ ] umiem wyjaśnić różnicę między frontendem a backendem
+- [ ] wiem, jak działa przeglądarka po wejściu na stronę
+- [ ] rozumiem request i response
+- [ ] znam podstawy HTTP i HTTPS
+- [ ] wiem, z czego składa się URL
+- [ ] rozumiem, czym jest DNS
+- [ ] wiem, czym są cookies
+- [ ] rozumiem różnicę między localStorage i sessionStorage
+- [ ] wiem, czym jest JSON
+- [ ] rozumiem podstawy REST API
+- [ ] wiem, czym jest DOM
+- [ ] rozumiem, czym jest renderowanie strony
+- [ ] znam różnice między CSR, SSR i SSG
+- [ ] umiem korzystać z podstawowych zakładek DevTools
+
+## Praktyka
+
+- [ ] potrafię pobrać dane z API przez `fetch`
+- [ ] potrafię sparsować odpowiedź JSON
+- [ ] potrafię wyrenderować dane w UI
+- [ ] potrafię obsłużyć loading i error state
+- [ ] potrafię sprawdzić request w zakładce Network
+- [ ] potrafię znaleźć błąd w Console
+- [ ] potrafię podejrzeć localStorage, sessionStorage i cookies
+- [ ] potrafię wyjaśnić krok po kroku, co dzieje się po kliknięciu przycisku
+
+---
+
+# Podsumowanie
+
+Fundamenty webu są bazą całego frontendu.
+
+Bez nich można nauczyć się składni frameworka, ale trudno będzie:
+
+- dobrze debugować,
+- świadomie budować aplikacje,
+- rozumieć integrację z API,
+- tłumaczyć swoje decyzje techniczne,
+- rozwijać się dalej jako frontend developer.
+
+Dlatego ten temat traktuję jako obowiązkowy fundament przed głębszym wejściem w React, Next.js i bardziej zaawansowane projekty.
