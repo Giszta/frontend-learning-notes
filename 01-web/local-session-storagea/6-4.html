@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ćwiczenie 7.4</title>
+  </head>
+  <body>
+    <button id="set-cookie">Ustaw cookie</button>
+
+    <script>
+      document.querySelector("#set-cookie").addEventListener("click", () => {
+        document.cookie = "language=pl; path=/";
+        console.log("Ustawiono cookie language=pl");
+      });
+    </script>
+  </body>
+</html>

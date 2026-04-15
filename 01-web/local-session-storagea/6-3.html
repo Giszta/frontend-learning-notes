@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ćwiczenie 7.3</title>
+  </head>
+  <body>
+    <button id="save-session">Zapisz sesję</button>
+
+    <script>
+      document.querySelector("#save-session").addEventListener("click", () => {
+        sessionStorage.setItem("currentStep", "2");
+        console.log("Zapisano currentStep=2 do sessionStorage");
+      });
+    </script>
+  </body>
+</html>

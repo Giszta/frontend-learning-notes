@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ćwiczenie 7.1</title>
+  </head>
+  <body>
+    <button id="save-theme">Zapisz dark theme</button>
+
+    <script>
+      document.querySelector("#save-theme").addEventListener("click", () => {
+        localStorage.setItem("theme", "dark");
+        console.log("zapisano theme=dark do localStorage");
+      });
+    </script>
+  </body>
+</html>
